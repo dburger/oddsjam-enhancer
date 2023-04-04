@@ -33,17 +33,23 @@ function rowToEvent(row) {
 }
 
 const rowToUrl = (book, sport, league) => {
-  if (book === "Barstool") {
+  book = book.toLowerCase();
+  sport = sport.toLowerCase();
+  league = league.toLowerCase();
+  if (book === "barstool") {
+    if (sport === "hockey") {
+      sport = "ice_hockey";
+    }
     return `https://www.barstoolsportsbook.com/sports/${sport.toLowerCase()}/${league.toLowerCase()}`;
-  } else if (book === "BetMGM") {
+  } else if (book === "betmgm") {
     return `https://sports.ks.betmgm.com/en/sports`;
-  } else if (book === "Caesars") {
+  } else if (book === "caesars") {
     return `https://sportsbook.caesars.com/us/ks/bet/${sport.toLowerCase()}/events/all`;
-  } else if (book === "DraftKings") {
+  } else if (book === "draftkings") {
     return `https://sportsbook.draftkings.com/leagues/${sport.toLowerCase()}/${league.toLowerCase()}`
-  } else if (book === "FanDuel") {
+  } else if (book === "fanduel") {
     return `https://sportsbook.fanduel.com/navigation/${league.toLowerCase()}`;
-  } else if (book === "PointsBet (Kansas)") {
+  } else if (book === "pointsbet (kansas)") {
     return `https://ks.pointsbet.com/sports/basketball/${league.toUpperCase()}`;
   } else {
     const term = "Celtics";
