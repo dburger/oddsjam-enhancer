@@ -1,0 +1,4 @@
+/* This causes the image to appear to be a link even when OddsJam is not linking it. */
+img[alt="Barstool"], img[alt="BetMGM"], img[alt="Caesars"], img[alt="DraftKings"], img[alt="FanDuel"], img[alt="PointsBet (Kansas)"] {
+    cursor: pointer;
+}

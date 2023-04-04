@@ -9,7 +9,7 @@
   "manifest_version": 3,
   "content_scripts": [{
      "matches": ["https://oddsjam.com/*"],
-     // "css": ["my-styles.css"],
+     "css": ["styles.css"],
      "js": ["content-script.js"]
   }]
 }
