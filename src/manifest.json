@@ -11,5 +11,9 @@
      "matches": ["https://oddsjam.com/*"],
      "css": ["styles.css"],
      "js": ["content-script.js"]
-  }]
+  }],
+  "options_page": "options.html",
+  "permissions": [
+    "storage"
+  ]
 }
