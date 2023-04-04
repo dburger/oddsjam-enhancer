@@ -1,3 +1,9 @@
+window.addEventListener('click', function(evt) {
+    console.log("bound at root");
+    console.log("target: " + evt.target.tagName);
+    console.log("alt", evt.target.alt);
+}, true);
+
 let count = 0;
 
 const findAnchor = (elem, stop) => {
