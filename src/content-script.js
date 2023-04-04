@@ -75,6 +75,7 @@ button.addEventListener("click", (evt) => {
       img.style.cursor = "pointer";
       img.style.border = IMG_BORDER;
       img.addEventListener("click", (evt) => {
+        evt.stopPropagation();
         evt.preventDefault();
         const book = img.alt;
         const event = rowToEvent(row);
