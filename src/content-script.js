@@ -14,7 +14,6 @@ const button = document.createElement("button");
 button.textContent = "MARK";
 button.addEventListener("click", (evt) => {
   const divs = document.querySelectorAll("div#betting-tool-table-row");
-  console.log("is", divs.length);
   for (const div of divs){
     if (hasPinny(div)) {
       // We indicate the bets with a background color. Removing the divs causes
@@ -36,6 +35,16 @@ const findRow = (elem) => {
   return null;
 }
 
+const getState = () => {
+  const sel = document.getElementById("react-select-state-selector-top-input");
+  if (sel === null) {
+    console.log("State not found, returning KS.")
+    return "KS";
+  }
+  // This is quite fragile. Easier way to target?
+  return sel.parentNode.parentNode.textContent;
+}
+
 function rowToEvent(row) {
   const header = row.parentNode.children.item(0);
   let i = 0;
@@ -47,7 +56,8 @@ function rowToEvent(row) {
   return row.children.item(i).children.item(1).children.item(1).textContent;
 }
 
-const rowToUrl = (book, sport, league) => {
+const rowToUrl = (state, book, sport, league) => {
+  state = state.toLowerCase();
   book = book.toLowerCase();
   sport = sport.toLowerCase();
   league = league.toLowerCase();
@@ -57,15 +67,15 @@ const rowToUrl = (book, sport, league) => {
     }
     return `https://www.barstoolsportsbook.com/sports/${sport.toLowerCase()}/${league.toLowerCase()}`;
   } else if (book === "betmgm") {
-    return `https://sports.ks.betmgm.com/en/sports`;
+    return `https://sports.${state}.betmgm.com/en/sports`;
   } else if (book === "caesars") {
-    return `https://sportsbook.caesars.com/us/ks/bet/${sport.toLowerCase()}/events/all`;
+    return `https://sportsbook.caesars.com/us/${state}/bet/${sport.toLowerCase()}/events/all`;
   } else if (book === "draftkings") {
     return `https://sportsbook.draftkings.com/leagues/${sport.toLowerCase()}/${league.toLowerCase()}`
   } else if (book === "fanduel") {
     return `https://sportsbook.fanduel.com/navigation/${league.toLowerCase()}`;
   } else if (book === "pointsbet (kansas)") {
-    return `https://ks.pointsbet.com/sports/basketball/${league.toUpperCase()}`;
+    return `https://${state}.pointsbet.com/sports/basketball/${league.toUpperCase()}`;
   } else {
     const term = "Celtics";
     return `https://www.pinnacle.com/en/search/${term}`;
@@ -85,12 +95,13 @@ window.addEventListener('click', function(evt) {
     evt.preventDefault();
     evt.stopPropagation();
 
+    const state = getState();
     const book = img.alt;
     const event = rowToEvent(row);
     const parts = event.split(" | ");
     const sport = parts[0];
     const league = parts[1];
-    const url = rowToUrl(book, sport, league);
+    const url = rowToUrl(state, book, sport, league);
     window.open(url, book);
 
     img.style.border = "2px solid red";
