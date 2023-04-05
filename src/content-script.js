@@ -19,7 +19,7 @@ button.addEventListener("click", (evt) => {
     if (hasPinny(div)) {
       // We indicate the bets with a background color. Removing the divs causes
       // react to blow up later with refreshing the content.
-      div.style.backgroundColor = "lightyellow";
+      div.style.backgroundColor = "yellow";
     }
   }
 });
