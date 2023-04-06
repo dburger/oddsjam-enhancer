@@ -1,4 +1,8 @@
-/* This causes the image to appear to be a link even when OddsJam is not linking it. */
-img[alt="Barstool"], img[alt="BetMGM"], img[alt="Caesars"], img[alt="DraftKings"], img[alt="FanDuel"], img[alt="PointsBet (Kansas)"] {
+/*
+ This causes the image to appear to be a link even when OddsJam is not linking it.
+ It also flags the images whose links are being intercepted with a red border.
+ */
+div#betting-tool-table-row img {
     cursor: pointer;
+    border: 2px solid red !important;
 }
