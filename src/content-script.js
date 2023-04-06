@@ -1,3 +1,5 @@
+let count = 0;
+
 const findAnchor = (elem, stop) => {
   while (elem !== null && elem !== stop) {
     if (elem.tagName === "A") {
@@ -49,20 +51,29 @@ const rowToUrl = (book, sport, league) => {
   }
 }
 
+const buttonLabel = () => {
+  return `Linkify (${count})`;
+}
+
 const button = document.createElement("button");
-button.appendChild(document.createTextNode("Linkify"));
+button.appendChild(document.createTextNode(buttonLabel()));
+
+const IMG_BORDER = "2px solid red";
 
 button.addEventListener("click", (evt) => {
   const imgs = document.querySelectorAll("img");
   for (const img of imgs) {
     const row = findRow(img);
     if (row !== null) {
+      if (img.style.border === IMG_BORDER) {
+        continue;
+      }
       const anchor = findAnchor(img, row);
       if (anchor) {
         anchor.setAttribute("href", "#");
       }
       img.style.cursor = "pointer";
-      img.style.border = "2px solid red";
+      img.style.border = IMG_BORDER;
       img.addEventListener("click", (evt) => {
         evt.preventDefault();
         const book = img.alt;
@@ -73,11 +84,14 @@ button.addEventListener("click", (evt) => {
         const url = rowToUrl(book, sport, league);
         window.open(url, "_blank");
       });
+      count++;
     }
   }
+  button.innerText = buttonLabel();
 });
 
 
 // const logo = document.querySelector('img[alt="OddsJam"]')
 // logo.parentNode.appendChild(button);
-document.body.appendChild(button);
+// document.body.appendChild(button);
+document.body.prepend(button);
