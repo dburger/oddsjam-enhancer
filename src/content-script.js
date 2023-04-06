@@ -18,6 +18,18 @@ const findRow = (elem) => {
   return null;
 }
 
+
+function rowToEvent(row) {
+  const header = row.parentNode.children.item(0);
+  let i = 0;
+  for (; i < header.children.length; i++) {
+    if (header.children.item(i).textContent === "Event") {
+      break;
+    }
+  }
+  return row.children.item(i).children.item(1).children.item(1).textContent;
+}
+
 const rowToUrl = (book, sport, league) => {
   if (book === "Barstool") {
     return `https://www.barstoolsportsbook.com/sports/${sport.toLowerCase()}/${league.toLowerCase()}`;
@@ -50,11 +62,11 @@ button.addEventListener("click", (evt) => {
         anchor.setAttribute("href", "#");
       }
       img.style.cursor = "pointer";
-      img.style.border = "1px solid red";
+      img.style.border = "2px solid red";
       img.addEventListener("click", (evt) => {
         evt.preventDefault();
         const book = img.alt;
-        const event = row.children.item(4).children.item(1).children.item(1).textContent;
+        const event = rowToEvent(row);
         const parts = event.split(" | ");
         const sport = parts[0];
         const league = parts[1];
