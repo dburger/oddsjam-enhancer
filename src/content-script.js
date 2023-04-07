@@ -63,7 +63,7 @@ window.addEventListener('click', function(evt) {
     const sport = parts[0];
     const league = parts[1];
     const url = rowToUrl(book, sport, league);
-    window.open(url, "_blank");
+    window.open(url, book);
 
     img.style.border = "2px solid red";
     count++;
