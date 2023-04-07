@@ -11,13 +11,15 @@ const hasPinny = (elem) => {
 }
 
 const button = document.createElement("button");
-button.textContent = "FILTER";
+button.textContent = "MARK";
 button.addEventListener("click", (evt) => {
   const divs = document.querySelectorAll("div#betting-tool-table-row");
   console.log("is", divs.length);
   for (const div of divs){
-    if (!hasPinny(div)) {
-      div.remove();
+    if (hasPinny(div)) {
+      // We indicate the bets with a background color. Removing the divs causes
+      // react to blow up later with refreshing the content.
+      div.style.backgroundColor = "lightyellow";
     }
   }
 });
