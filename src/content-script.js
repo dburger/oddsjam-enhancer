@@ -1,3 +1,29 @@
+const hasPinny = (elem) => {
+  if (elem.alt === "Pinny") {
+    return true;
+  }
+  for (let i = 0; i < elem.children.length; i++) {
+    if (hasPinny(elem.children.item(i))) {
+      return true;
+    }
+  }
+  return false;
+}
+
+const button = document.createElement("button");
+button.textContent = "FILTER";
+button.addEventListener("click", (evt) => {
+  const divs = document.querySelectorAll("div#betting-tool-table-row");
+  console.log("is", divs.length);
+  for (const div of divs){
+    if (!hasPinny(div)) {
+      div.remove();
+    }
+  }
+});
+
+document.body.prepend(button);
+
 const findRow = (elem) => {
   while (elem !== null) {
     if (elem.id === "betting-tool-table-row") {
