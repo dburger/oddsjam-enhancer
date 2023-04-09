@@ -84,13 +84,16 @@ const rowToUrl = (state, book, sport, league) => {
 
 let count = 0;
 
-window.addEventListener('click', function(evt) {
+window.addEventListener('click', async function(evt) {
   if (evt.target.tagName === "IMG") {
     const img = evt.target;
     const row = findRow(img);
     if (row === null) {
       return;
     }
+
+    // Premature optimization??? Launch the settings promise early.
+    const sp = chrome.storage.sync.get({settings: DEFAULT_SETTINGS});
 
     evt.preventDefault();
     evt.stopPropagation();
@@ -102,9 +105,11 @@ window.addEventListener('click', function(evt) {
     const sport = parts[0];
     const league = parts[1];
     const url = rowToUrl(state, book, sport, league);
-    window.open(url, book);
 
-    img.style.border = "2px solid red";
+    const {{settings: {target, showMark}}} = await sp;
+    const target = target === "$book" ? book : target;
+    window.open(url, target);
+
     count++;
     console.log(`OddsJam Linker intercepted ${count} clicks.`);
   }

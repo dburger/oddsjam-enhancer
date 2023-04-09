@@ -10,7 +10,10 @@
   "content_scripts": [{
      "matches": ["https://oddsjam.com/*"],
      "css": ["styles.css"],
-     "js": ["content-script.js"]
+     "js": [
+       "content-script.js",
+       "common.js"
+     ]
   }],
   "options_page": "options.html",
   "permissions": [
