@@ -10,21 +10,6 @@ const hasPinny = (elem) => {
   return false;
 }
 
-const button = document.createElement("button");
-button.textContent = "MARK";
-button.addEventListener("click", (evt) => {
-  const divs = document.querySelectorAll("div#betting-tool-table-row");
-  for (const div of divs){
-    if (hasPinny(div)) {
-      // We indicate the bets with a background color. Removing the divs causes
-      // react to blow up later with refreshing the content.
-      div.style.backgroundColor = "yellow";
-    }
-  }
-});
-
-document.body.prepend(button);
-
 const findRow = (elem) => {
   while (elem !== null) {
     if (elem.id === "betting-tool-table-row") {
@@ -114,5 +99,24 @@ window.addEventListener('click', async function(evt) {
     console.log(`OddsJam Linker intercepted ${count} clicks.`);
   }
 }, true);
+
+chrome.storage.sync.get({settings: DEFAULT_SETTINGS}, (result) => {
+  if (result.settings.showMark) {
+    const button = document.createElement("button");
+    button.textContent = "MARK";
+    button.addEventListener("click", (evt) => {
+      const divs = document.querySelectorAll("div#betting-tool-table-row");
+      for (const div of divs){
+        if (hasPinny(div)) {
+          // We indicate the bets with a background color. Removing the divs causes
+          // react to blow up later with refreshing the content.
+          div.style.backgroundColor = "yellow";
+        }
+      }
+    });
+
+    document.body.prepend(button);
+  }
+});
 
 console.log("OddsJam Linker Hooks Set");
