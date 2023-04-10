@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>OddsJam Enhancer</title>
+        <title>OddsJam Enhancer Options</title>
         <link rel="stylesheet" href="options.css">
     </head>
     <body>
-        <h1>OddsJam Enhancer</h1>
+        <h1>OddsJam Enhancer Options</h1>
 
-        <label for="target">Sportsbook window.Open Target</label>
-        <select name="target" id="target">
-            <option value="$book">Book Name</option>
-            <option value='OddsJam'>"OddsJam"</option>
-            <option value='_blank'>"_blank"</option>
-        </select>
+        <div>
+            <label for="target"><b>Sportsbook window.Open Target:</b></label>
+            <select name="target" id="target">
+                <option value="$book">Book Name</option>
+                <option value='OddsJam'>"OddsJam"</option>
+                <option value='_blank'>"_blank"</option>
+            </select>
+        </div>
 
-        <label for="showMark">Show Mark</label>
-        <input type="radio" id="showMark" name="mark" value="show mark">
-        <label for="hideMark">Hide Mark</label>
-        <input type="radio" id="hideMark" name="mark" value="hide mark">
+        <div>
+            <input type="radio" id="showMark" name="mark" value="show mark">
+            <label for="showMark"><b>Show Mark Pinny</b></label>
+        </div>
+        <div>
+            <input type="radio" id="hideMark" name="mark" value="hide mark">
+            <label for="hideMark"><b>Hide Mark Pinny</b></label>
+        </div>
 
-        <button id="save">Save</button>
+        <div>
+            <button id="save">Save</button>
+        </div>
     </body>
     <script src="common.js"></script>
     <script src="options.js"></script>
