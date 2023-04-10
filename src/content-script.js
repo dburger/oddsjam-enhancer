@@ -91,8 +91,8 @@ window.addEventListener('click', async function(evt) {
     const league = parts[1];
     const url = rowToUrl(state, book, sport, league);
 
-    const settings = await sp;
-    const target = settings.target === "$book" ? book : settings.target;
+    const result = await sp;
+    const target = result.settings.target === "$book" ? book : result.settings.target;
     window.open(url, target);
 
     count++;
