@@ -10,12 +10,12 @@ button.addEventListener("click", (evt) => {
       window.alert(chrome.runtime.lastError.message);
     }
   });
-});
 
-const configureOptions = ({settings: {target, showMark}}) => {
-  target.value = target;
-  showMark.checked = showMark;
-  hideMark.checked = !showMark;
+
+const configureOptions = ({settings}) => {
+  target.value = settings.target;
+  showMark.checked = settings.showMark;
+  hideMark.checked = !settings.showMark;
 };
 
 document.addEventListener("DOMContentLoaded", () => {
