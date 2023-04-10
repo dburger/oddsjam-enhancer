@@ -1,10 +1,23 @@
-// NOTE: I would have liked to make this a proper module with a `getSettings`
-// function, however, because content scripts cannot easily (without hacks)
-// import other modules I only have the default settings shared here. The
-// content script and option page that use this work with chrome.storage.sync
-// directly.
+// NOTE: We use callbacks instead of async/await within this project because
+// content-scripts can't import modules easily and things get a little wonky
+// when using async/await from non-module code. Thus instead of mixing
+// approaches, we just use callbacks exclusively.
 
-const DEFAULT_SETTINGS = {
-  target: "_blank",
-  showMark: true
+const makeSettings = (target, showMark) => {
+  return {
+    settings: {
+      target: target,
+      showMark: showMark
+    }
+  }
 };
+
+const DEFAULT_SETTINGS = makeSettings("_blank", true);
+
+const getSettings = (callback) => {
+  chrome.storage.sync.get(DEFAULT_SETTINGS, callback);
+}
+
+const setSettings = (target, showMark, callback) => {
+  chrome.storage.sync.set(makeSettings(target, showMark), callback);
+}

@@ -69,16 +69,13 @@ const rowToUrl = (state, book, sport, league) => {
 
 let count = 0;
 
-window.addEventListener('click', async function(evt) {
+window.addEventListener('click', function(evt) {
   if (evt.target.tagName === "IMG") {
     const img = evt.target;
     const row = findRow(img);
     if (row === null) {
       return;
     }
-
-    // Premature optimization??? Launch the settings promise early.
-    const sp = chrome.storage.sync.get({settings: DEFAULT_SETTINGS});
 
     evt.preventDefault();
     evt.stopPropagation();
@@ -91,17 +88,18 @@ window.addEventListener('click', async function(evt) {
     const league = parts[1];
     const url = rowToUrl(state, book, sport, league);
 
-    const result = await sp;
-    const target = result.settings.target === "$book" ? book : result.settings.target;
-    window.open(url, target);
-
-    count++;
-    console.log(`OddsJam Linker intercepted ${count} clicks.`);
+    getSettings(({settings}) => {
+      const target = settings.target === "$book" ? book : settings.target;
+      window.open(url, target);
+  
+      count++;
+      console.log(`OddsJam Linker intercepted ${count} clicks.`);
+    });
   }
 }, true);
 
-chrome.storage.sync.get({settings: DEFAULT_SETTINGS}, (result) => {
-  if (result.settings.showMark) {
+getSettings(({settings}) => {
+  if (settings.showMark) {
     const button = document.createElement("button");
     button.textContent = "MARK";
     button.addEventListener("click", (evt) => {
@@ -117,6 +115,6 @@ chrome.storage.sync.get({settings: DEFAULT_SETTINGS}, (result) => {
 
     document.body.prepend(button);
   }
-});
 
-console.log("OddsJam Linker Hooks Set");
+  console.log("OddsJam Linker Hooks Set");
+});
