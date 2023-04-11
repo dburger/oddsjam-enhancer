@@ -101,7 +101,7 @@ window.addEventListener('click', function(evt) {
 getSettings(({settings}) => {
   if (settings.showMark) {
     const button = document.createElement("button");
-    button.textContent = "MARK";
+    button.textContent = "MARK PINNY";
     button.addEventListener("click", (evt) => {
       const divs = document.querySelectorAll("div#betting-tool-table-row");
       for (const div of divs){
