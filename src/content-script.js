@@ -98,32 +98,42 @@ window.addEventListener('click', function(evt) {
   }
 }, true);
 
+const markPinny = () => {
+  let count = 0;
+  // The OJ tables now have BOOKS and PINNY columns. We only want to mark the
+  // rows where the BOOKS column has pinny odds. This code is fragile under
+  // modifications of the OJ dom. It looks for h3s with text "Book", then
+  // searches down from the node's parents looking for an img with alt "Pinny".
+  // If found, it walks back up to the row with id "betting-tool-table-row" and
+  // marks that row.
+  const h3s = Array.from(document.querySelectorAll("h3"));
+  const divs = h3s.filter(h3 => h3.textContent === "Book").map(h3 => h3.parentNode);
+  for (const div of divs){
+    if (hasPinny(div)) {
+      const row = findRow(div);
+      if (row) {
+        // We indicate the bets with a background color. Removing the divs causes
+        // react to blow up later with refreshing the content.
+        row.style.backgroundColor = "yellow";
+        count++;
+      }
+    }
+  }
+  console.log(`Marked ${count} rows.`);
+};
+
+document.addEventListener("keyup", (evt) => {
+  if (evt.ctrlKey && evt.key === "m") {
+    markPinny();
+  }
+});
+
 getSettings(({settings}) => {
   if (settings.showMark) {
     const button = document.createElement("button");
     button.textContent = "MARK PINNY";
     button.addEventListener("click", (evt) => {
-      let count = 0;
-      // The OJ tables now have BOOKS and PINNY columns. We only want to mark the
-      // rows where the BOOKS column has pinny odds. This code is fragile under
-      // modifications of the OJ dom. It looks for h3s with text "Book", then
-      // searches down from the node's parents looking for an img with alt "Pinny".
-      // If found, it walks back up to the row with id "betting-tool-table-row" and
-      // marks that row.
-      const h3s = Array.from(document.querySelectorAll("h3"));
-      const divs = h3s.filter(h3 => h3.textContent === "Book").map(h3 => h3.parentNode);
-      for (const div of divs){
-        if (hasPinny(div)) {
-          const row = findRow(div);
-          if (row) {
-            // We indicate the bets with a background color. Removing the divs causes
-            // react to blow up later with refreshing the content.
-            row.style.backgroundColor = "yellow";
-            count++;
-          }
-        }
-      }
-      console.log(`Marked ${count} rows.`);
+      markPinny();
     });
 
     document.body.prepend(button);
