@@ -103,14 +103,27 @@ getSettings(({settings}) => {
     const button = document.createElement("button");
     button.textContent = "MARK PINNY";
     button.addEventListener("click", (evt) => {
-      const divs = document.querySelectorAll("div#betting-tool-table-row");
+      let count = 0;
+      // The OJ tables now have BOOKS and PINNY columns. We only want to mark the
+      // rows where the BOOKS column has pinny odds. This code is fragile under
+      // modifications of the OJ dom. It looks for h3s with text "Book", then
+      // searches down from the nodes parent's looking for an img with alt "Pinny".
+      // If found, it walks back up to the row with id "betting-tool-table-row" and
+      // marks that row.
+      const h3s = Array.from(document.querySelectorAll("h3"));
+      const divs = h3s.filter(h3 => h3.textContent === "Book").map(h3 => h3.parentNode);
       for (const div of divs){
         if (hasPinny(div)) {
-          // We indicate the bets with a background color. Removing the divs causes
-          // react to blow up later with refreshing the content.
-          div.style.backgroundColor = "yellow";
+          const row = findRow(div);
+          if (row) {
+            // We indicate the bets with a background color. Removing the divs causes
+            // react to blow up later with refreshing the content.
+            row.style.backgroundColor = "yellow";
+            count++;
+          }
         }
       }
+      console.log(`Marked ${count} rows.`);
     });
 
     document.body.prepend(button);
