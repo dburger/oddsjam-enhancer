@@ -107,7 +107,7 @@ getSettings(({settings}) => {
       // The OJ tables now have BOOKS and PINNY columns. We only want to mark the
       // rows where the BOOKS column has pinny odds. This code is fragile under
       // modifications of the OJ dom. It looks for h3s with text "Book", then
-      // searches down from the nodes parent's looking for an img with alt "Pinny".
+      // searches down from the node's parents looking for an img with alt "Pinny".
       // If found, it walks back up to the row with id "betting-tool-table-row" and
       // marks that row.
       const h3s = Array.from(document.querySelectorAll("h3"));
