@@ -38,7 +38,8 @@ function rowToEvent(row) {
       break;
     }
   }
-  return row.children.item(i).children.item(1).children.item(1).textContent;
+
+  return row.children.item(0).children.item(i).children.item(1).textContent;
 }
 
 const rowToUrl = (state, book, sport, league) => {
