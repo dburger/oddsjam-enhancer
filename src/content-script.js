@@ -53,7 +53,7 @@ const rowToUrl = (state, book, sport, league) => {
     }
     return `https://www.barstoolsportsbook.com/sports/${sport.toLowerCase()}/${league.toLowerCase()}`;
   } else if (book === "betmgm") {
-    return `https://sports.${state}.betmgm.com/en/sports`;
+    return "https://sports.ks.betmgm.com/en/sports?popup=betfinder";
   } else if (book === "caesars") {
     return `https://sportsbook.caesars.com/us/${state}/bet/${sport.toLowerCase()}/events/all`;
   } else if (book === "draftkings") {
