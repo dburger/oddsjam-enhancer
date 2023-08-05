@@ -39,19 +39,30 @@ function rowToEvent(row) {
     }
   }
 
-  return row.children.item(0).children.item(i).children.item(1).textContent;
+  const parent = row.children.item(0).children.item(i).children.item(1);
+  const teams = parent.children.item(0).textContent.split(" vs ");
+  const event = parent.children.item(1).textContent.split(" | ");
+
+  return {
+    awayTeam: teams[0],
+    homeTeam: teams[1],
+    sport: event[0],
+    league: event[1]
+  }
 }
 
-const rowToUrl = (state, book, sport, league) => {
+const rowToUrl = (state, book, homeTeam, sport, league) => {
   state = state.toLowerCase();
   book = book.toLowerCase();
+  homeTeam = homeTeam.toLowerCase();
   sport = sport.toLowerCase();
   league = league.toLowerCase();
   if (book === "barstool") {
-    if (sport === "hockey") {
-      sport = "ice_hockey";
-    }
-    return `https://www.barstoolsportsbook.com/sports/${sport.toLowerCase()}/${league.toLowerCase()}`;
+    // if (sport === "hockey") {
+    //   sport = "ice_hockey";
+    // }
+    // return `https://www.barstoolsportsbook.com/sports/${sport}/${league}`;
+    return `https://barstoolsportsbook.com/search?searchTerm=${homeTeam}`;
   } else if (book === "betmgm") {
     return "https://sports.ks.betmgm.com/en/sports?popup=betfinder";
   } else if (book === "caesars") {
@@ -59,12 +70,13 @@ const rowToUrl = (state, book, sport, league) => {
   } else if (book === "draftkings") {
     return `https://sportsbook.draftkings.com/leagues/${sport.toLowerCase()}/${league.toLowerCase()}`
   } else if (book === "fanduel") {
-    return `https://sportsbook.fanduel.com/navigation/${league.toLowerCase()}`;
+    // return `https://sportsbook.fanduel.com/navigation/${league.toLowerCase()}`;
+    return `https://sportsbook.fanduel.com/search?q=${homeTeam}`
   } else if (book === "pointsbet (kansas)") {
-    return `https://${state}.pointsbet.com/sports/basketball/${league.toUpperCase()}`;
+    // return `https://${state}.pointsbet.com/sports/basketball/${league.toUpperCase()}`;
+    return `https://ks.pointsbet.com/?search=${homeTeam}`
   } else {
-    const term = "Celtics";
-    return `https://www.pinnacle.com/en/search/${term}`;
+    return `https://www.pinnacle.com/en/search/${homeTeam}`;
   }
 }
 
@@ -84,10 +96,7 @@ window.addEventListener('click', function(evt) {
     const state = getState();
     const book = img.alt;
     const event = rowToEvent(row);
-    const parts = event.split(" | ");
-    const sport = parts[0];
-    const league = parts[1];
-    const url = rowToUrl(state, book, sport, league);
+    const url = rowToUrl(state, book, event.homeTeam, event.sport, event.league);
 
     getSettings(({settings}) => {
       const target = settings.target === "$book" ? book : settings.target;
