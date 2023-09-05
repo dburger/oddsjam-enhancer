@@ -1,8 +1,8 @@
 clean:
 	rm -rf *~
-	rm -f ./oddsjam-linker.zip
+	rm -f ./oddsjam-enhancer.zip
 
-oddsjam-linker.zip: ./src/*
-	cd ./src; zip ../oddsjam-linker.zip *
+oddsjam-enhancer.zip: ./src/*
+	cd ./src; zip ../oddsjam-enhancer.zip *
 
-build: oddsjam-linker.zip
+build: oddsjam-enhancer.zip
