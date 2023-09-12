@@ -1,8 +1,9 @@
+zipname = oddsjam-enhancer.zip
 clean:
 	rm -rf *~
-	rm -f ./oddsjam-enhancer.zip
+	rm -f ./${zipname}
 
 oddsjam-enhancer.zip: ./src/*
-	cd ./src; zip ../oddsjam-enhancer.zip *
+	cd ./src; zip ../${zipname} *
 
-build: oddsjam-enhancer.zip
+build: ${zipname}
