@@ -57,12 +57,8 @@ const rowToUrl = (state, book, homeTeam, sport, league) => {
   homeTeam = homeTeam.toLowerCase();
   sport = sport.toLowerCase();
   league = league.toLowerCase();
-  if (book === "barstool") {
-    // if (sport === "hockey") {
-    //   sport = "ice_hockey";
-    // }
-    // return `https://www.barstoolsportsbook.com/sports/${sport}/${league}`;
-    return `https://barstoolsportsbook.com/search?searchTerm=${homeTeam}`;
+  if (book === "espn bet") {
+    return `https://espnbet.com/search?searchTerm=${homeTeam}`;
   } else if (book === "betmgm") {
     return "https://sports.ks.betmgm.com/en/sports?popup=betfinder";
   } else if (book === "caesars") {
