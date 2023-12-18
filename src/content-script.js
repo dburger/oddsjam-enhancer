@@ -21,13 +21,13 @@ const findRow = (elem) => {
 }
 
 const getState = () => {
-  const sel = document.getElementById("react-select-state-selector-top-input");
-  if (sel === null) {
-    console.log("State not found, returning KS.")
+  // Fragile, but I don't see another more solid looking ID attribute.
+  const stateTextBox = document.getElementById("headlessui-combobox-input-:r1:");
+  if (stateTextBox === null) {
+    console.warn("State not found, returning KS.");
     return "KS";
   }
-  // This is quite fragile. Easier way to target?
-  return sel.parentNode.parentNode.textContent;
+  return stateTextBox.value;
 }
 
 function rowToEvent(row) {
@@ -60,29 +60,23 @@ const rowToUrl = (state, book, homeTeam, sport, league) => {
   if (book === "espn bet") {
     return `https://espnbet.com/search?searchTerm=${homeTeam}`;
   } else if (book === "betfred") {
-    // return ${state}...
-    return "https://az.betfredsports.com/";
+    return `https://${state}.betfredsports.com/`;
   } else if (book === "betmgm") {
-    // return ${state}...
-    return "https://sports.az.betmgm.com/en/sports?popup=betfinder";
+    return `https://sports.${state}.betmgm.com/en/sports?popup=betfinder`;
   } else if (book === "betrivers") {
-    // return ${state}...
-    return "https://az.betrivers.com/";
+    return `https://${state}.betrivers.com/`;
   } else if (book === "betway") {
-    // return ${state}...
-    return "https://az.betway.com/sports/home";
+    return `https://${state}.betway.com/sports/home`;
   } else if (book === "caesars") {
     return `https://sportsbook.caesars.com/us/${state}/bet/${sport.toLowerCase()}/events/all`;
   } else if (book === "draftkings") {
-    return `https://sportsbook.draftkings.com/leagues/${sport.toLowerCase()}/${league.toLowerCase()}`
+    return `https://sportsbook.draftkings.com/leagues/${sport.toLowerCase()}/${league.toLowerCase()}`;
   } else if (book === "fanduel") {
-    // return `https://sportsbook.fanduel.com/navigation/${league.toLowerCase()}`;
-    return `https://sportsbook.fanduel.com/search?q=${homeTeam}`
+    return `https://sportsbook.fanduel.com/search?q=${homeTeam}`;
   } else if (book === "pointsbet (kansas)") {
-    // return ${state}...
-    return `https://ks.pointsbet.com/?search=${homeTeam}`
+    return `https://${state}.pointsbet.com/?search=${homeTeam}`;
   } else if (book === "superbook") {
-    return "https://az.superbook.com/search";
+    return `https://${state}.superbook.com/search`;
   } else if (book === "wynnbet") {
     return "https://bet.wynnbet.com/";
   } else {
