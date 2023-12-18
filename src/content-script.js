@@ -59,8 +59,18 @@ const rowToUrl = (state, book, homeTeam, sport, league) => {
   league = league.toLowerCase();
   if (book === "espn bet") {
     return `https://espnbet.com/search?searchTerm=${homeTeam}`;
+  } else if (book === "betfred") {
+    // return ${state}...
+    return "https://az.betfredsports.com/";
   } else if (book === "betmgm") {
-    return "https://sports.ks.betmgm.com/en/sports?popup=betfinder";
+    // return ${state}...
+    return "https://sports.az.betmgm.com/en/sports?popup=betfinder";
+  } else if (book === "betrivers") {
+    // return ${state}...
+    return "https://az.betrivers.com/";
+  } else if (book === "betway") {
+    // return ${state}...
+    return "https://az.betway.com/sports/home";
   } else if (book === "caesars") {
     return `https://sportsbook.caesars.com/us/${state}/bet/${sport.toLowerCase()}/events/all`;
   } else if (book === "draftkings") {
@@ -69,8 +79,12 @@ const rowToUrl = (state, book, homeTeam, sport, league) => {
     // return `https://sportsbook.fanduel.com/navigation/${league.toLowerCase()}`;
     return `https://sportsbook.fanduel.com/search?q=${homeTeam}`
   } else if (book === "pointsbet (kansas)") {
-    // return `https://${state}.pointsbet.com/sports/basketball/${league.toUpperCase()}`;
+    // return ${state}...
     return `https://ks.pointsbet.com/?search=${homeTeam}`
+  } else if (book === "superbook") {
+    return "https://az.superbook.com/search";
+  } else if (book === "wynnbet") {
+    return "https://bet.wynnbet.com/";
   } else {
     return `https://www.pinnacle.com/en/search/${homeTeam}`;
   }
