@@ -73,6 +73,8 @@ const rowToUrl = (state, book, homeTeam, sport, league) => {
     return `https://sportsbook.draftkings.com/leagues/${sport.toLowerCase()}/${league.toLowerCase()}`;
   } else if (book === "fanduel") {
     return `https://sportsbook.fanduel.com/search?q=${homeTeam}`;
+  } else if (book === "hard rock") {
+    return `https://www.hardrock.bet/${state}/`;
   } else if (book === "pointsbet (kansas)") {
     return `https://${state}.pointsbet.com/?search=${homeTeam}`;
   } else if (book === "superbook") {
