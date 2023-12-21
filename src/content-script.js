@@ -84,7 +84,7 @@ const rowToUrl = (state, book, homeTeam, sport, league) => {
   } else if (book === "wynnbet") {
     return "https://bet.wynnbet.com/";
   } else if (book.startsWith("betway")) {
-    return `https://${state}.betway.com/sports/home`;
+    return `https://${state}.betway.com/sports/find`;
   } else {
     return `https://www.pinnacle.com/en/search/${homeTeam}`;
   }
