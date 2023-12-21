@@ -65,8 +65,6 @@ const rowToUrl = (state, book, homeTeam, sport, league) => {
     return `https://sports.${state}.betmgm.com/en/sports?popup=betfinder`;
   } else if (book === "betrivers") {
     return `https://${state}.betrivers.com/`;
-  } else if (book === "betway") {
-    return `https://${state}.betway.com/sports/home`;
   } else if (book === "caesars") {
     return `https://sportsbook.caesars.com/us/${state}/bet/${sport.toLowerCase()}/events/all`;
   } else if (book === "draftkings") {
@@ -81,6 +79,8 @@ const rowToUrl = (state, book, homeTeam, sport, league) => {
     return `https://${state}.superbook.com/search`;
   } else if (book === "wynnbet") {
     return "https://bet.wynnbet.com/";
+  } else if (book.startsWith("betway")) {
+    return `https://${state}.betway.com/sports/home`;
   } else {
     return `https://www.pinnacle.com/en/search/${homeTeam}`;
   }
