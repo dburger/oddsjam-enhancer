@@ -67,6 +67,8 @@ const rowToUrl = (state, book, homeTeam, sport, league) => {
     return `https://${state}.betrivers.com/`;
   } else if (book === "caesars") {
     return `https://sportsbook.caesars.com/us/${state}/bet/${sport.toLowerCase()}/events/all`;
+  } else if (book === "desert diamond") {
+    return "https://www.playdesertdiamond.com/";
   } else if (book === "draftkings") {
     return `https://sportsbook.draftkings.com/leagues/${sport.toLowerCase()}/${league.toLowerCase()}`;
   } else if (book === "fanduel") {
@@ -77,6 +79,8 @@ const rowToUrl = (state, book, homeTeam, sport, league) => {
     return `https://${state}.pointsbet.com/?search=${homeTeam}`;
   } else if (book === "superbook") {
     return `https://${state}.superbook.com/search`;
+  } else if (book === "unibet") {
+    return `https://${state}.unibet.com/`;
   } else if (book === "wynnbet") {
     return "https://bet.wynnbet.com/";
   } else if (book.startsWith("betway")) {
